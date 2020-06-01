@@ -29,8 +29,10 @@ module logicalunit(
     output out
     );
     
-    wire   out;
-         
-      //Todo: add you logic here
+    wire out;
+    
+	assign out = (a&&b)?func[3]:
+		(a==b)?func[0]:
+		a?func[2]:func[1];
 
 endmodule
