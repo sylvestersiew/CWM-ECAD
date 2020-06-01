@@ -21,11 +21,21 @@
 `timescale 1ns / 100ps
 
 module mux(
-    //Todo: define inputs here
+    input a,
+    input b,
+    input sel,
+    output out
     );
     
-    //Todo: define registers and wires here
-
+    wire out;
+    
+    assign out = sel?b:a;
+    
+    //t=0
+	//assign out = (t==0 && sel)?b:
+		//(t==0)?a:
+		//(t==5)?0:
+		//(t!=0)?t+1;
 
     //Todo: define your logic here                 
       
