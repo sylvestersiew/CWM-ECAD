@@ -29,24 +29,16 @@ module muxtd(
 	output [2:0] result
 	);
 	
-	reg [2:0] RAG;
-	wire red;
-	wire amber;
-	wire green;
-
-	assign RAG[2] = red;
-	assign RAG[1] = amber;
-	assign RAG[0] = green;
-
-	reg [2:0] throw;
+	wire [2:0] RAG;
+	wire [2:0] throw;
 
 	// Instantiate traffic module
 
 	traffic toptraffic (
 	.clk (clk),
-	.red (red),
-	.amber (amber),
-	.green (green)
+	.red (RAG[2]),
+	.amber (RAG[1]),
+	.green (RAG[0])
 	);
 	
 	// Instantiate dice module

@@ -47,16 +47,13 @@ module top_tb(
 		
 	//Stimulus logic
 	initial begin
-		
-		result=0;
-		result_prev=ab;
+		result_prev=3'b000; // start in failed state, where code should pull it into right one at 0s BEFORE clock even rises at 5s
 		err=0;
 		
-
 		forever begin
 			#CLK_PERIOD
 
-			// testbench for traffic/RAG
+			// testbench for traffic = 1/RAG
 			if (sel)
 			begin
 			
@@ -93,9 +90,9 @@ module top_tb(
 			end
 			
 
-				// testbench for dice
-				if (sel)
-				begin
+			// testbench for dice, sel =0
+			else
+			begin
 					
 					
 				if (rst)
