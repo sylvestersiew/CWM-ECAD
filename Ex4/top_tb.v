@@ -16,7 +16,7 @@ module top_tb(
 
 	//Todo: Regitsers and wires
 	reg clk;
-    reg rst;
+	reg rst;
 	reg button;
 	reg err;
 	reg [2:0] throw_before;
@@ -24,24 +24,24 @@ module top_tb(
 
 	//Todo: Clock generation
 	initial
-    begin
-       clk = 1'b0;
-       forever
-         #(CLK_PERIOD/2) clk=~clk;
-     end
+	begin
+		clk = 1'b0;
+		forever
+			#(CLK_PERIOD/2) clk=~clk;
+		end
 
-	//Todo: User logic
-	initial begin
-		rst=0; // start with no reset so can check 111
-		button=1'b0;
-    	err=0;
-    	throw_before=3'b111;
-    	assign throw = 3'b111; // IMMEDIATELY GIVES NEW THROW OUTPUT from bottom
-		forever begin
+		//Todo: User logic
+		initial begin
+			rst=1; // start with reset to initiate
+			button=1'b0;
+			err=0;
+			throw_before=3'b000;
+		
+			forever begin
 			#CLK_PERIOD
-			
-        	if (rst)
-        	begin
+				
+			if (rst)
+			begin
 				if (throw!=3'b000)
 				begin
 					$display("***TEST FAILED!,Reset issue***");
@@ -49,7 +49,7 @@ module top_tb(
 				end
 			end
 				
-			else if (throw_before==3'b000|throw_before==3'b111)
+			else if (throw_before==3'b000||throw_before==3'b111)
 			begin
 					if (throw != 3'b001)
 					begin

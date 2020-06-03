@@ -19,28 +19,25 @@
 `timescale 1ns / 100ps
 
 module dice(
-    //Todo: add ports 
+	//Todo: add ports 
 	input clk,
-    input rst,
-    input button,
-    output reg [2:0] throw
-    );
-    
-    //initial begin	
-		
-	//end
+	input rst,
+	input button,
+	output reg [2:0] throw
+	);
 	
 	always@(posedge clk or posedge rst)
 		if(rst) 
 			throw <= 3'b000;
-		else
-			if(throw==3'b000|throw==3'b111)
+		else if(throw==3'b000|throw==3'b111)
+			throw <= 3'b001;
+		else if (button == 1)
+		begin
+			if (throw==3'b110)
 				throw <= 3'b001;
 			else
-				if (button == 1)
-					if (throw==3'b110)
-						throw <= 3'b001;
-					else
-						throw <= throw + 1;
-				
+				throw <= throw + 1;
+		end
+		else
+		;	
 endmodule
