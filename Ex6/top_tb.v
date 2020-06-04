@@ -35,7 +35,7 @@ module top_tb(
 		sel=1;	
 		rst=1;
 		// traffic requires 5 clk period to complete
-		#50
+		#51 // If put at 50, test will be for sel=0 instead of the results on sel=1 at clock #45 instance
 		sel = 0;
 		#10
 		rst = 0;
@@ -49,6 +49,7 @@ module top_tb(
 	initial begin
 		result_prev=3'b000; // start in failed state, where code should pull it into right one at 0s BEFORE clock even rises at 5s
 		err=0;
+		button=0;
 		
 		forever begin
 			#CLK_PERIOD
@@ -79,9 +80,9 @@ module top_tb(
 						$display("***TEST FAILED!,001->010 issue***");
 						err=1;
 					end	
-		 		else if ((result_prev==3'b010) && (result!=3'b001))
+		 		else if ((result_prev==3'b010) && (result!=3'b100))
 					begin
-						$display("***Traffic TEST FAILED!,001->010 issue***");
+						$display("***Traffic TEST FAILED!,010->001 issue***");
 						err=1;
 					end
 			

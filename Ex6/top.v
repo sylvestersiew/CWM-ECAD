@@ -31,9 +31,9 @@ module muxtd(
 	
 	wire [2:0] RAG;
 	wire [2:0] throw;
+	
 
 	// Instantiate traffic module
-
 	traffic toptraffic (
 	.clk (clk),
 	.red (RAG[2]),
@@ -48,19 +48,13 @@ module muxtd(
 	.button (button),
 	.throw (throw)
 	);
-	
+
 	// Instantiate multiplex module
 	// when select = 1, b chosen.. If select is 1, out = traffic /RAG
-	mux topmux (
-	.a (throw),
-	.b (RAG),
-	.sel (sel),
- 	.out (result)
-	);
-
+	assign result = (sel)?(RAG):(throw);
 endmodule
 	
-	
+
 
 
 	
