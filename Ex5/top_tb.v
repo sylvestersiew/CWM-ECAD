@@ -68,7 +68,7 @@ module top_tb(
 					err=1;
 				end	
 			
-         		else if ((RAG_before==3'b010) && (RAG!=3'b001))
+         		else if ((RAG_before==3'b010) && (RAG!=3'b100))
 				begin
 					$display("***TEST FAILED!,001->010 issue***");
 					err=1;
