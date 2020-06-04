@@ -78,4 +78,9 @@ module top_tb(
 	
 endmodule 
 
-			
+			//else if ((!read) && result_prev!=result)
+			//	begin
+			//		$display("***read FAILED!,enable issue***");
+			//		err=1;
+			//	end
+			//result_prev = result;	
