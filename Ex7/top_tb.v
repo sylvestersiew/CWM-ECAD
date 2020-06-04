@@ -20,13 +20,15 @@ module top_tb(
 	reg [2:0] a;	
 	reg [2:0] b;
 	reg read;
-	reg result_prev;
 	wire [5:0] result;
+	reg [2:0] a_prev;	
+	reg [2:0] b_prev;
+	reg [5:0] result_prev;
 	
 	//Decide how enable will be tested	
 	initial begin
 		read=1;
-		#391 // If put at 140, test will be for read=0 instead of the results on read=1 at clock #135 instance
+		#381 // If put at 140, test will be for read=0 instead of the results on read=1 at clock #135 instance
 		read=0;
 	end
 	
@@ -42,16 +44,27 @@ module top_tb(
 		a=0;
 		b=0;
 		err=0;
-    	
+		#10 //TO ALLOW CURRENT RESULT FROM A_PREV AND B_PREV TO BE REGISTERED
 		forever begin
 			
 			#CLK_PERIOD
-			if ((read) && a*b!=result)
+			// RAM HAS A LATENCY OF 2 CLOCK CYCLE // ONE CLOCK PERIOD. THUS, COMPARE PREVIOUS A AND B TO CURRENT RESULT
+			if ((read) && a_prev*b_prev!=result)
 				begin
 					$display("***TEST FAILED!,wrong calculation***");
 					err=1;
 				end
 			
+			// WHEN READ IS LOW, AT 381, RESULT TO BE CLOCKED AT 375, DELAYED TO 385 WILL NOT BE CLOCKED TOO
+			else if (!read && result_prev!=result)
+				begin
+					$display("***TEST FAILED!,read issue***");
+					err=1;
+				end
+
+			result_prev = result;	
+			a_prev=a;
+			b_prev=b;
 			a = a+1;
 			if (a==0)
 				b = b+1;
@@ -77,10 +90,3 @@ module top_tb(
 	);
 	
 endmodule 
-
-			//else if ((!read) && result_prev!=result)
-			//	begin
-			//		$display("***read FAILED!,enable issue***");
-			//		err=1;
-			//	end
-			//result_prev = result;	
