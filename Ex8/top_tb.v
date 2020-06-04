@@ -42,7 +42,8 @@ module top_tb(
 	initial begin
 		a=0;
 		b=0;
-		rst = 0;
+		// RESET IS ACTIVE LOW !!!		
+		rst = 1;
 		err=0;
 		result_prev=0;
 		forever begin
@@ -59,7 +60,8 @@ module top_tb(
 					$display("***TEST FAILED!,read issue***");
 					err=1;
 				end
-			result_prev = result;	
+
+			
 			a = a+1;
 			if (a==0)
 				b = b+1;
