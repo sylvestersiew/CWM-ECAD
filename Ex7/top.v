@@ -27,9 +27,11 @@ module timestable(
 
 	mybram_timestable your_instance_name (
 	.clka(clk),
-	.ena(read),      
-	.addra(ab),  // input wire [5 : 0] addra
-	.douta(result)  // output wire [5 : 0] douta
+	.ena(read),	
+	.wea(1'b0),      
+	.addra(ab),
+	.dina(6'h0),
+	.douta(result) 
 	);
 
 endmodule
