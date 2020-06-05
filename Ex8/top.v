@@ -24,7 +24,7 @@ module timestable(
 
 	wire [31:0] ab;
 	
-	assign ab[31:0] = {26'h0,a[2:0],b[2:0]};
+	assign ab = {24'h0,b,a,2'h0};
 
 	blk_mem_gen_AXI4 your_instance_name (
 	  // Safety Circuit not required
